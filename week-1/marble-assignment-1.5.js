@@ -26,6 +26,7 @@ function processRequest(req, res){
     res.end(body);
 }
 
+// Creation of the server to process the web page.
 let x = http.createServer(processRequest);
 
 x.listen(8080);
