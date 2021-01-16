@@ -1,0 +1,8 @@
+{
+    "name": "hello-world",
+    "author": "Fred Marble",
+    "private": true,
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
