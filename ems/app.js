@@ -4,6 +4,8 @@ let path = require("path");
 let logger = require("morgan");
 let mongoose = require("mongoose");
 let helmet=require("helmet");
+let cookieParser = require('cookie-parser');
+let csrf = require('csurf');
 let Employee = require("./models/employee")
 let mongoDB ='mongodb+srv://admine:admine@buwebdev-cluster-1.qys8r.mongodb.net/test';
 mongoose.connect(mongoDB,{
@@ -33,6 +35,35 @@ app.use(logger("short"));
 let emp = Employee({
     firstName: "John",
     lastName: "Wick"
+});
+// CSRF protection
+app.use(csrfProtection);
+// Cookie parser
+app.use(cookieParser());
+
+app.use(function(req, res, next) {
+    var token = req.csrfToken();
+    res.cookie('XSRF-TOKEN', token);
+    res.locals.csrfToken = token;
+    next();
+  });
+
+  app.get("/", function(request, response) {
+
+    response.render("index", {
+
+        message: "New Fruit Entry Page"
+
+    });
+
+});
+
+app.post("/process", function(request, response) {
+
+    console.log(request.body.txtName);
+
+    response.redirect("/");
+
 });
 
 app.get("/", function (request, response) {
