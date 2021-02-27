@@ -76,6 +76,40 @@ app.get("/", function (request, response) {
 
 });
 
+app.post("/process", function(request, response) {
+
+    // console.log(request.body.txtName);
+ 
+    if (!request.body.txtName) {
+ 
+        response.status(400).send("Entries must have a name");
+ 
+        return;
+ 
+    }
+ 
+    // get the request's form data
+ 
+    var employeeName = request.body.txtFirstName + ' ' + txtLastName;
+ 
+    console.log(employeeName);
+ 
+ 
+    // save
+ 
+    employee.save(function (error) {
+ 
+        if (error) throw error;
+ 
+        console.log(employeeName + " saved successfully!");
+ 
+    });
+ 
+    response.redirect("/");
+ 
+ });
+ 
+
 http.createServer(app).listen(8080, function() {
 
     console.log("Application started on port 8080!");
