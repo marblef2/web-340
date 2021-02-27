@@ -3,6 +3,7 @@ let http = require("http");
 let path = require("path");
 let logger = require("morgan");
 let mongoose = require("mongoose");
+let helmet=require("helmet");
 let Employee = require("./models/employee")
 let mongoDB ='mongodb+srv://admine:admine@buwebdev-cluster-1.qys8r.mongodb.net/test';
 mongoose.connect(mongoDB,{
@@ -38,7 +39,7 @@ app.get("/", function (request, response) {
 
     response.render("index", {
 
-        title: "Home page"
+        message:"Xss Prevention Example"
 
     });
 
